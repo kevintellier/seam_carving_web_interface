@@ -12,11 +12,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def upload_file():
 	if request.method == 'POST':
 		file = request.files['file']
+		x_red = request.form['x_red']
+		y_red = request.form['y_red']
 		print(file)
 		filename = secure_filename(file.filename)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		os.system("python script.py "+filename)
-		return render_template('upload_complete.html', file=filename)
+		return render_template('upload_complete.html', file=filename, xred=x_red, yred =y_red)
 	return render_template('error.html')
 
 @app.route("/")
