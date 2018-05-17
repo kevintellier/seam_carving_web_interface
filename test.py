@@ -4,28 +4,24 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = ""
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+@app.route("/", methods=['POST'])
+def upload_file():
+	if request.method == 'POST':
+		file = request.files['file']
+		print(file)
+		filename = secure_filename(file.filename)
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+		os.system("python script.py "+filename)
+		return render_template('upload_complete.html', file=filename)
+	return render_template('error.html')
 
 @app.route("/")
 def index():
 	return render_template('index.html')
-
-@app.route("/uploader", methods=['POST','GET'])
-def uploader():
-	target = os.path.join(APP_ROOT, 'images/')
-	print(target)
-
-	if not os.path.isdir(target):
-		os.mkdir(target)
-
-	for file in request.files.getlist("file"):
-		print(file)
-		filename = file.filename
-		destination = "/".join([target, filename])
-		print(destination)
-		file.save(destination)
-
-	return render_template("upload_complete.html")
 
 if __name__ == '__main__':
 	app.run(debug=True)
