@@ -4,7 +4,8 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = ""
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static\\uploads')
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -18,7 +19,8 @@ def upload_file():
 		filename = secure_filename(file.filename)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		os.system("python script.py "+filename)
-		return render_template('upload_complete.html', file=filename, xred=x_red, yred =y_red)
+		filepath = (os.path.join('static\\uploads', filename))
+		return render_template('upload_complete.html', file=filepath, xred=x_red, yred =y_red)
 	return render_template('error.html')
 
 @app.route("/")
