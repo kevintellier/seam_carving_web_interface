@@ -27,14 +27,25 @@
     <!-- Header -->
     <header class="masthead d-flex" style="color: white;">
       <div class="container text-center my-auto">
-        <h1 class="mb-1">Seam Carving 1</h1>
+        <h1 class="mb-1">Seam Carving</h1>
         <h3 class="mb-5">
           <em>Projet Atelier E2</em>
         </h3>
-        <form action="" method=post enctype = multipart/form-data>>
-          <input type=file name=file accept=".jpg, .jpeg, .png" multiple><br>
-          <p>Nouvelle taille en x : </p><input type="text" name="x_red"><br>
-          <p>Nouvelle taille en y : </p><input type="text" name="y_red"><br>
+        <form name="form1" action="" method=post enctype = multipart/form-data>
+
+          <select name="operation" onchange="var upload_mask=document.getElementById('upload_mask');upload2_div=document.getElementById('upload2_div');if(this.selectedIndex == 1){ upload2_div.style.display = 'inline';upload_mask.setAttribute('required','')}else{upload2_div.style.display = 'none';upload_mask.removeAttribute('required','')}">
+            <option selected="selected" value="resize">Resizing</option>
+            <option value="mask">Masque</option>
+          </select><br>
+
+          <p style="display: inline">Source :</p><input type=file name=file accept=".jpg, .jpeg, .png" required><br>
+
+          <div id="upload2_div" style="display: none">
+            <p style="display: inline">Masque :</p> <input type=file name=file2 id="upload_mask" accept=".jpg, .jpeg, .png"><br>
+          </div>
+
+          <p>Réduction en x : </p><input type="number" name="x_red" required><br>
+          <p>Réduction en y : </p><input type="number" name="y_red" required><br>
           <input type=submit value=Upload>
         </form>
       </div>

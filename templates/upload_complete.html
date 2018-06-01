@@ -27,10 +27,11 @@
     <!-- Header -->
     <header class="masthead d-flex" style="color: white;">
       <div class="container text-center my-auto">
-        <h1 class="mb-1">Upload complete !</h1>
-        <p>{{ file }}<br>Reduction en x: {{ xred }} px<br>Reduction en y: {{ yred }} px</p>
-        <img src={{file}} width="500px"/><br>
-        <a href={{file}} download><button type="button">Telecharger</button></a>
+        <h1 class="mb-1">Upload terminé !</h1>
+        <p>{{ operation }}</p>
+        <p>{{ file }} , {{ file2 }}<br>Reduction en x: {{ xred }} px<br>Reduction en y: {{ yred }} px</p>
+        <img src="{{ url_for('static',filename='uploads/'+file) }}" width="500px"/><br>
+        <a href="{{ url_for('static',filename='uploads/'+file2) }}" download><button type="button">Telecharger</button></a>
       </div>
     </header>
 
