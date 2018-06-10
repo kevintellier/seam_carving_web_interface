@@ -2,7 +2,6 @@
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -20,6 +19,7 @@
 
     <!-- Custom CSS -->
     <link href="{{ url_for('static',filename='css/stylish-portfolio.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/custom16.css') }}" rel="stylesheet">
 
   </head>
 
@@ -31,24 +31,28 @@
         <h3 class="mb-5">
           <em>Projet Atelier E2</em>
         </h3>
-        <form name="form1" action="" method=post enctype = multipart/form-data>
+        <form name="form1" action="" method=post enctype = multipart/form-data onsubmit="var loading_div=document.getElementById('loading_container');loading_div.style.display = 'inline-block';">
 
-          <select name="operation" onchange="var upload_mask=document.getElementById('upload_mask');upload2_div=document.getElementById('upload2_div');if(this.selectedIndex == 1){ upload2_div.style.display = 'inline';upload_mask.setAttribute('required','')}else{upload2_div.style.display = 'none';upload_mask.removeAttribute('required','')}">
+          <select name="operation" class="select" onchange="var upload_mask=document.getElementById('upload_mask');upload2_div=document.getElementById('upload2_div');if(this.selectedIndex == 1){ upload2_div.style.display = 'inline';upload_mask.setAttribute('required','')}else{upload2_div.style.display = 'none';upload_mask.removeAttribute('required','')}">
             <option selected="selected" value="resize">Resizing</option>
             <option value="mask">Masque</option>
           </select><br>
 
-          <p style="display: inline">Source :</p><input type=file name=file accept=".jpg, .jpeg, .png" required><br>
+          <input class="inputfile" id="file" type="file" name="file" accept=".jpg, .jpeg, .png" required><label for="file"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> Fichier</label><br>
 
           <div id="upload2_div" style="display: none">
-            <p style="display: inline">Masque :</p> <input type=file name=file2 id="upload_mask" accept=".jpg, .jpeg, .png"><br>
+            <input class="inputfile" type=file name=file2 id="upload_mask" accept=".jpg, .jpeg, .png"><label for="file"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> Masque</label><br>
           </div>
 
           <p>Réduction en x : </p><input type="number" name="x_red" required><br>
           <p>Réduction en y : </p><input type="number" name="y_red" required><br>
-          <input type=submit value=Upload>
+          <input class="midnight-blue-flat-button" type=submit value=Upload>
         </form>
+        <div id="loading_container" style="display: none">
+            <div id="loading"></div>
+        </div>
       </div>
+      <!--<div id="loading" style="display: none"><img style="display : inline-block;" src="{{ url_for('static',filename='img/91.gif') }}"></div>-->
       <div class="overlay"></div>
     </header>
 

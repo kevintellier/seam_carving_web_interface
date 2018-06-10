@@ -1,14 +1,12 @@
+from PIL import Image
 import sys
-import os
-from shutil import copyfile
 
 def main():
-    mon_fichier = open("fichier.txt", "w")
-    mon_fichier.write(sys.argv[1] + " traite")
-    print("./output "+"static/uploads/"+sys.argv[1]+ " "+sys.argv[2] + " "+ sys.argv[3])
-    os.system("./output "+"static/uploads/"+sys.argv[1]+ " "+sys.argv[2] + " "+ sys.argv[3])
-    copyfile("result.png","static/img/result.png")
-
+	filename = sys.argv[1]
+	im_rgb = Image.open("static/uploads/"+filename)
+	im_bw = im_rgb.convert("L")
+	im_bw.save("static/processed/"+filename)
+	return 0
 
 if __name__ == '__main__':
-    main()
+	main()
