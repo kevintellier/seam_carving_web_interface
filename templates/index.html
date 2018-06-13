@@ -1,61 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" href="{{ url_for('static',filename='css/style2.css') }}"/>
+		<title>Seam Carving</title>
+		<link rel="icon" href="{{ url_for('static',filename='img/favicon1.png') }}" />
+	</head>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<body>
+		<div id="left_div">
+			<h1>S.C.I.P</h1>
+			<p>Seam Carving for Image Processing</p>
+		</div>
 
-    <title>Seam Carving</title>
+		<div id="right_div">
+			<form name="form1" action="" method=post enctype = multipart/form-data onsubmit="var loading_div=document.getElementById('loading_container');loading_div.style.display = 'inline';">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	          <select name="operation" class="select" onchange="
 
-    <!-- Custom Fonts -->
-    <link href="{{ url_for('static',filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('static',filename='vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet">
+	          var upload_mask=document.getElementById('upload_mask');
+	          var upload2_div=document.getElementById('upload2_div');
+	          var upload1_div=document.getElementById('upload1_div');
+	          var reduction_div=document.getElementById('reduction_div');
+	          var file=document.getElementById('file');
+	          var file2=document.getElementById('file2');
+	          var x_red=document.getElementById('x_red_elem');
+	          var y_red=document.getElementById('y_red_elem');
 
-    <!-- Custom CSS -->
-    <link href="{{ url_for('static',filename='css/stylish-portfolio.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css/custom16.css') }}" rel="stylesheet">
+	          if(this.selectedIndex == 0){
+	            reduction_div.style.display = 'inline';
+	            upload1_div.style.display = 'inline';
+	            upload2_div.style.display = 'none';
 
-  </head>
+	            file.setAttribute('required','');
+	            upload_mask.removeAttribute('required','');
+	            x_red.setAttribute('required','');
+	            y_red.setAttribute('required','');
+	          }
+	          else if(this.selectedIndex == 1){
+	            reduction_div.style.display = 'none';
+	            upload1_div.style.display = 'inline';
+	            upload2_div.style.display = 'inline';
 
-  <body id="page-top">
-    <!-- Header -->
-    <header class="masthead d-flex" style="color: white;">
-      <div class="container text-center my-auto">
-        <h1 class="mb-1">Seam Carving</h1>
-        <h3 class="mb-5">
-          <em>Projet Atelier E2</em>
-        </h3>
-        <form name="form1" action="" method=post enctype = multipart/form-data onsubmit="var loading_div=document.getElementById('loading_container');loading_div.style.display = 'inline-block';">
+	            upload_mask.setAttribute('required','');
+	            file.setAttribute('required','');
+	            x_red.removeAttribute('required','');
+	            y_red.removeAttribute('required','');
+	          }
+	          else if(this.selectedIndex == 2){
+	            reduction_div.style.display = 'inline';
+	            upload1_div.style.display = 'inline';
+	            upload2_div.style.display = 'none';
 
-          <select name="operation" class="select" onchange="var upload_mask=document.getElementById('upload_mask');upload2_div=document.getElementById('upload2_div');if(this.selectedIndex == 1){ upload2_div.style.display = 'inline';upload_mask.setAttribute('required','')}else{upload2_div.style.display = 'none';upload_mask.removeAttribute('required','')}">
-            <option selected="selected" value="resize">Resizing</option>
-            <option value="mask">Masque</option>
-          </select><br>
+	            file.setAttribute('required','');
+	            upload_mask.removeAttribute('required','');
+	            x_red.setAttribute('required','');
+	            y_red.setAttribute('required','');
+	          }
+	          ">
+	            <option selected="selected" value="resize">Resizing</option>
+	            <option value="mask">Masque</option>
+	            <option value="accent">Accentuation</option>
+	          </select><br>
 
-          <input class="inputfile" id="file" type="file" name="file" accept=".jpg, .jpeg, .png" required><label for="file"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> Fichier</label><br>
+	          <div id="upload1_div">
+	            <input class="inputfile" id="file" type="file" name="file" accept=".jpg, .jpeg, .png" required><label for="file"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> Fichier</label><br>
+	          </div>
 
-          <div id="upload2_div" style="display: none">
-            <input class="inputfile" type=file name=file2 id="upload_mask" accept=".jpg, .jpeg, .png"><label for="file"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> Masque</label><br>
-          </div>
+	          <div id="upload2_div" style="display: none">
+	            <input class="inputfile" type=file name="file2" id="upload_mask" accept=".jpg, .jpeg, .png"><label for="file"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> Masque</label><br>
+	          </div>
 
-          <p>Réduction en x : </p><input type="number" name="x_red" required><br>
-          <p>Réduction en y : </p><input type="number" name="y_red" required><br>
-          <input class="midnight-blue-flat-button" type=submit value=Upload>
-        </form>
-        <div id="loading_container" style="display: none">
-            <div id="loading"></div>
-        </div>
-      </div>
-      <!--<div id="loading" style="display: none"><img style="display : inline-block;" src="{{ url_for('static',filename='img/91.gif') }}"></div>-->
-      <div class="overlay"></div>
-    </header>
-
-  </body>
-
+	          <div id="reduction_div">
+	            <p>X : </p><input type="number" name="x_red" id="x_red_elem" class="number" required><br>
+	            <p>Y : </p><input type="number" name="y_red" id="y_red_elem" class="number" required><br>
+	          </div>
+	          <input class="midnight-blue-flat-button" type=submit value=Upload>
+	        </form>
+	        <div id="loading_container" style="display: none;">
+            	<div id="loading"></div>
+        	</div>
+		</div>
+	</body>
 </html>

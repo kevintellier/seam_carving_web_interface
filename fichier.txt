@@ -1,1 +1,0 @@
-D:\Dev\Python\seam_carving_web_interface\test.py traite
