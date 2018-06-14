@@ -197,6 +197,12 @@ input[type="number"]:valid{
     animation: spin 2s ease-in-out infinite;
 }
 
+#backarrow{
+	position:absolute;
+	top:10px;
+	left:10px;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

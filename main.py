@@ -25,7 +25,6 @@ def upload_file():
 
 		if option == "mask":
 			#Mask case
-			option = "Masque"
 			file = request.files['file']
 			file2 = request.files['file2']
 
@@ -35,13 +34,15 @@ def upload_file():
 			filename2 = secure_filename(file2.filename)
 			file2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
 			filepath2 = (os.path.join('static/uploads', filename2))
-			reader = os.system("python script.py")
-			#print(reader, file=sys.stderr)
-			return render_template('upload_complete.html', file=filename, xred="", yred ="", operation= option, file2=filename2)
+			reader = os.system("python script.py "+option+" "+filename+" "+filename2)
+			print(option, file=sys.stderr)
+			option = "Masque"
+			filename_1, file_extension = filename.split(".")
+			filename_1 += ".png"
+			return render_template('upload_complete.html', file=filename_1, xred="", yred ="", operation= option, file2=filename2)
 
 		elif option == "resize":
 			#Resize case
-			option = "Resize"
 			file = request.files['file']
 			new_x = request.form['x_red']
 			new_y = request.form['y_red']
@@ -49,26 +50,48 @@ def upload_file():
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			filepath = (os.path.join('static/uploads', filename))
-			reader = os.system("python script.py "+filename +" resize " + new_x + " " + new_y)
-			return render_template('upload_complete.html', file=filename, xred=new_x, yred =new_y, operation= option, file2="")
+			reader = os.system("python script.py "+option+" "+filename+" "+new_x+" "+new_y)
+			option = "Resize"
+			filename_1, file_extension = filename.split(".")
+			filename_1 += ".png"
+			return render_template('upload_complete.html', file=filename_1, xred=new_x, yred =new_y, operation= option, file2="")
 
 		elif option == "accent":
-			option = "Accentuation"
 			file = request.files['file']
+			file2 = request.files['file2']
 			new_x = request.form['x_red']
 			new_y = request.form['y_red']
 
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			filepath = (os.path.join('static/uploads', filename))
-			reader = os.system("python script.py "+filename +" accent " + new_x + " " + new_y)
-			return render_template('upload_complete.html', file=filename, xred=new_x, yred =new_y, operation= option, file2="")
+			filename2 = secure_filename(file2.filename)
+			file2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
+			filepath2 = (os.path.join('static/uploads', filename2))
+			reader = os.system("python script.py "+option+" "+ filename+" "+filename2+" "+new_x+" "+new_y)
+			option = "Accentuation"
+			filename_1, file_extension = filename.split(".")
+			return render_template('upload_complete.html', file=filename_1, xred=new_x, yred =new_y, operation= option, file2=filename2)
 	return render_template('error.html')
 
 
 @app.route("/")	
 def index():
 	return render_template('index.html')
+
+@app.route("/index.html")	
+def index2():
+	return redirect("/")
+
+@app.after_request
+def add_header(response):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
 
 if __name__ == '__main__':
 	app.run(debug=True)

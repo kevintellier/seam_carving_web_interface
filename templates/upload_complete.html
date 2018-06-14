@@ -9,6 +9,7 @@
 
 	<body>
 		<div id="left_div">
+			<a href="index.html"><img src="{{url_for('static',filename='img/arrow-left.svg')}}" height="50px" id="backarrow"></a>
 			<h2>Upload terminé !</h2>
 			<p>{{ operation }}</p>
 			<p>{{ file }} , {{ file2 }}<br>Reduction en x: {{ xred }} px<br>Reduction en y: {{ yred }} px</p>
