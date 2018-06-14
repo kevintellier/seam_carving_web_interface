@@ -49,7 +49,7 @@ def upload_file():
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			filepath = (os.path.join('static/uploads', filename))
-			reader = os.system("python script.py "+filename)
+			reader = os.system("python script.py "+filename +" resize " + new_x + " " + new_y)
 			return render_template('upload_complete.html', file=filename, xred=new_x, yred =new_y, operation= option, file2="")
 
 		elif option == "accent":
@@ -61,7 +61,7 @@ def upload_file():
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			filepath = (os.path.join('static/uploads', filename))
-			reader = os.system("python script.py "+filename)
+			reader = os.system("python script.py "+filename +" accent " + new_x + " " + new_y)
 			return render_template('upload_complete.html', file=filename, xred=new_x, yred =new_y, operation= option, file2="")
 	return render_template('error.html')
 
