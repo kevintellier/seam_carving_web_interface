@@ -21,8 +21,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def upload_file():
 	if request.method == 'POST':
 		option = request.form['operation']
-		print(option, file=sys.stderr)
-
 		if option == "mask":
 			#Mask case
 			file = request.files['file']
@@ -35,7 +33,6 @@ def upload_file():
 			file2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
 			filepath2 = (os.path.join('static/uploads', filename2))
 			reader = os.system("python script.py "+option+" "+filename+" "+filename2)
-			print(option, file=sys.stderr)
 			option = "Masque"
 			filename_1, file_extension = filename.split(".")
 			filename_1 += ".png"

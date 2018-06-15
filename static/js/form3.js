@@ -42,7 +42,7 @@ $(document).ready(function(){
 	          else if(this.selectedIndex == 2){
 	            reduction_div.style.display = 'inline';
 	            upload1_div.style.display = 'inline';
-	            upload2_div.style.display = 'none';
+	            upload2_div.style.display = 'inline';
 
 	            file.setAttribute('required','');
 	            upload_mask.removeAttribute('required','');
