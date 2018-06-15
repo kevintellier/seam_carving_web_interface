@@ -45,7 +45,7 @@ $(document).ready(function(){
 	            upload2_div.style.display = 'inline';
 
 	            file.setAttribute('required','');
-	            upload_mask.removeAttribute('required','');
+	            upload_mask.setAttribute('required','');
 	            x_red.setAttribute('required','');
 	            y_red.setAttribute('required','');
 	          }
