@@ -1,6 +1,23 @@
 $(document).ready(function(){
     $('#file').change(function(e){
         var fileName = e.target.files[0].name;
+        var file = e.target.files[0];
+	    var img = new Image();
+
+	    img.onload = function() {
+	        var sizes = {
+	            width:this.width,
+	            height: this.height
+	        };
+	        URL.revokeObjectURL(this.src);
+
+	        console.log('onload: sizes', sizes);
+	        console.log('onload: this', this);
+            $('#size').text("Width: " + sizes.width  +" px\nHeight: " + sizes.height + " px");
+
+	    }	
+        var objectURL = URL.createObjectURL(file);
+        img.src = objectURL;	
         $('#file_label').text(fileName);
     });
     $('#upload_mask').change(function(e){
@@ -8,8 +25,10 @@ $(document).ready(function(){
         $('#file2_label').text(""+fileName2);
     });
     $('select').change(function(e){
-        $('#file_label').text(" Fichier");
-        $('#file2_label').text(" Masque");
+        $('#file_label').text(" Image");
+        $('#file2_label').text(" Mask");
+        $('#size').text("");
+
 	          var upload_mask=document.getElementById('upload_mask');
 	          var upload2_div=document.getElementById('upload2_div');
 	          var upload1_div=document.getElementById('upload1_div');

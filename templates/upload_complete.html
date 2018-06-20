@@ -4,22 +4,22 @@
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" href="{{ url_for('static',filename='css/style2.css') }}"/>
 		<link rel="icon" href="{{ url_for('static',filename='img/favicon1.png') }}" />
-		<title>Seam Carving</title>
+		<title>S.C.I.P</title>
 	</head>
 
 	<body>
 		<div id="left_div">
 			<a href="index.html"><img src="{{url_for('static',filename='img/arrow-left.svg')}}" height="50px" id="backarrow"></a>
-			<h2>Upload terminé !</h2>
+			<h2>Done !</h2>
 			<p>{{ operation }}</p>
-			<p>{{ file }} , {{ file2 }}<br>Reduction en x: {{ xred }} px<br>Reduction en y: {{ yred }} px</p>
+			<p>{{ file }} , {{ file2 }}<br>New width : {{ xred }} px<br>New height : {{ yred }} px</p>
 		</div>
 
 		<div id="right_div2">
 			<div id="render">
 				<img src="{{ url_for('static',filename='processed/'+file) }}" width="600px"/>
 				<a href="{{ url_for('static',filename='processed/'+file) }}" download style="text-decoration: none;">
-				<button type="button" style="display: block;">Telecharger</button></a>
+				<button type="button" style="display: block;">Download</button></a>
 			</div>
 		</div>
 	</body>

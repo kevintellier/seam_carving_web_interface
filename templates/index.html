@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" href="{{ url_for('static',filename='css/style2.css') }}"/>
-		<title>Seam Carving</title>
+		<title>S.C.I.P</title>
 		<link rel="icon" href="{{ url_for('static',filename='img/favicon1.png') }}" />
 	</head>
 
@@ -18,24 +18,25 @@
 
 	          <select name="operation" class="select">
 	            <option selected="selected" value="resize">Resizing</option>
-	            <option value="mask">Masque</option>
+	            <option value="mask">Object Removal</option>
 	            <option value="accent">Accentuation</option>
 	          </select><br>
 
 	          <div id="upload1_div">
 	            <input class="inputfile" id="file" type="file" name="file" accept=".jpg, .jpeg, .png" required>
 
-              <label for="file"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> <p id="file_label">Fichier</p>
+              <label for="file"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> <p id="file_label">Image</p>
               </label>
 	          </div>
 
 	          <div id="upload2_div" style="display: none;">
-	            <input class="inputfile" type=file name="file2" id="upload_mask" accept=".jpg, .jpeg, .png"><label for="upload_mask"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> <p id="file2_label">Masque</p></label>
+	            <input class="inputfile" type=file name="file2" id="upload_mask" accept=".jpg, .jpeg, .png"><label for="upload_mask"><img height="20px" width="17px" src="{{ url_for('static',filename='img/upload-button.svg') }}"> <p id="file2_label">Mask</p></label>
 	          </div>
 
+	          	<p id="size"> </p>
 	          <div id="reduction_div">
-	            <p>X : </p><input type="number" name="x_red" id="x_red_elem" class="number" required><br>
-	            <p>Y : </p><input type="number" name="y_red" id="y_red_elem" class="number" required><br>
+	            <p>New width : </p><input type="number" name="x_red" id="x_red_elem" class="number" required><br>
+	            <p>New height : </p><input type="number" name="y_red" id="y_red_elem" class="number" required><br>
 	          </div>
 	          <input class="midnight-blue-flat-button" type=submit value=Upload>
 	        </form>

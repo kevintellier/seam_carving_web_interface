@@ -68,6 +68,7 @@ def upload_file():
 			reader = os.system("python script.py "+option+" "+ filename+" "+filename2+" "+new_x+" "+new_y)
 			option = "Accentuation"
 			filename_1, file_extension = filename.split(".")
+			filename_1 += ".png"
 			return render_template('upload_complete.html', file=filename_1, xred=new_x, yred =new_y, operation= option, file2=filename2)
 	return render_template('error.html')
 
